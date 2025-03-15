@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect } from 'react';
+import useRemoteConfig from './hooks/useRemoteConfig';
+import { useBooksStore } from './stores/useBooksStore';
+import { MainNavigator } from './navigators/MainNavigator';
+import { Providers } from './components/Providers/Providers';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { View } from 'tamagui';
 
 export default function App() {
+  const { jsonData, detailsCarousel } = useRemoteConfig();
+  const { initializeStore } = useBooksStore();
+
+  useEffect(() => {
+    if (!jsonData) return;
+    initializeStore({ ...jsonData, detailCarousels: detailsCarousel?.books });
+  }, [jsonData]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <Providers>
+        <View flex={1}>
+          <MainNavigator />
+        </View>
+      </Providers>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

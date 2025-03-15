@@ -13,16 +13,42 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.books.app",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "googleServicesFile": "./google-services.json",
+      "package": "com.books.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/nunitoSans/NunitoSans-Bold.ttf",
+            "./assets/fonts/nunitoSans/NunitoSans-BoldItalic.ttf",
+            "./assets/fonts/nunitoSans/NunitoSans-SemiBold.ttf",
+            "./assets/fonts/nunitoSans/NunitoSans-SemiBoldItalic.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }
